@@ -1,7 +1,7 @@
 # Devlog
 
 ## 11/15/2024 - Game Structure Planning
-- `MovingEntity`
+- `IMovingEntity`
     - Attributes:
         - `Weapon currentWeapon`
         - `float currentHealth`
@@ -12,7 +12,7 @@
     - Methods:
         - `void Attack()`
 
-- `Player` extends `MovingEntity`
+- `Player` extends `IMovingEntity`
     - Attributes:
         - `int coins`
         - `List<Upgrade> upgrades`
@@ -20,7 +20,7 @@
         - `void TakeDamage(int damageTaken)`
         - `void Heal(int amountHealed)`
 
-- `Zombie` extends `MovingEntity`
+- `IZombie` extends `IMovingEntity`
     - Static Attributes:
         - `int zombieCount`
     - Static Methods:
@@ -30,6 +30,10 @@
         - `int coinValue`
     - Methods:
         - `void Die()`
+
+- `NormalZombie` extends `IZombie`
+- `SpeedZombie` extends `IZombie`
+- `TankZombie` extends `IZombie`
 
 - `IUpgrade`
     - Attributes:
@@ -78,5 +82,11 @@
     - 3 Zombie Sprites
     - 5 Weapon Sprites
     - 4 Upgrade Sprites
-    - 3 ObstacleSprites
+    - 2 ObstacleSprites
 - Setup Game Object hierarchies and initialize Components
+
+- The interface `IZombie` is been removed in favor of the `Zombie` class. Each zombie type
+will have use the `Zombie` class to initialize its traits.
+
+- The interfaces `IRangedWeapon` and `IMeleeWeapon` will be removed in favor of `RangedWeapon` and `MeleeWeapon` classes.
+Each ranged and melee weapon will use their respective classes to initialize their traits.
