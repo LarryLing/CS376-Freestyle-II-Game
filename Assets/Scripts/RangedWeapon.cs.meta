@@ -1,9 +1,13 @@
 fileFormatVersion: 2
-guid: c15c8a4244dfaf14bb64c98d588d434b
+guid: cdea03bbe0989c04b967a3b8fa78a79d
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - firePoint: {instanceID: 0}
+  - gunHandle: {instanceID: 0}
+  - playerWeaponHand: {instanceID: 0}
+  - bulletPrefab: {fileID: 4595701915715228121, guid: bae28f1530b07a345938c71ce55e01c8, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -2,63 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Zombie : MonoBehaviour, IMovingEntity
+public class Zombie : MonoBehaviour
 {
-    public IWeapon currentWeapon
-    {
-        get
-        {
-            return currentWeapon;
-        }
-    }
-
-    public float currentHealth
-    {
-        get
-        {
-            return currentHealth;
-        }
-    }
-
-    public float maxHealth
-    {
-        get
-        {
-            return maxHealth;
-        }
-    }
-
-    public float movementSpeed
-    {
-        get
-        {
-            return movementSpeed;
-        }
-    }
-
-    public float resistance
-    {
-        get
-        {
-            return resistance;
-        }
-    }
-
-    public float attackSpeed
-    {
-        get
-        {
-            return attackSpeed;
-        }
-    }
-
     static int zombieCount;
 
-    int coinValue;
+    public IWeapon currentWeapon;
+
+    public float currentHealth;
+
+    public float maxHealth;
+
+    public float movementSpeed;
+
+    public float resistance;
+
+    public float attackSpeed;
+
+    public int coinValue;
 
     void Start()
     {
-
+        currentHealth = maxHealth;
     }
 
     void Update()
@@ -75,7 +39,7 @@ public class Zombie : MonoBehaviour, IMovingEntity
         zombieCount -= decreaseCount;
     }
 
-    void IMovingEntity.Attack()
+    void Attack()
     {
 
     }

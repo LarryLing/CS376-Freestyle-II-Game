@@ -90,3 +90,7 @@ will have use the `Zombie` class to initialize its traits.
 
 - The interfaces `IRangedWeapon` and `IMeleeWeapon` will be removed in favor of `RangedWeapon` and `MeleeWeapon` classes.
 Each ranged and melee weapon will use their respective classes to initialize their traits.
+
+- Implemented player and camera movement.
+
+- Implemented RangedWeapon firing and equipping.
