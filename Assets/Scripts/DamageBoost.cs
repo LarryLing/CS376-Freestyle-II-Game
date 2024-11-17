@@ -6,6 +6,8 @@ public class DamageBoost : MonoBehaviour
 {
     public Player player;
 
+    public GameController gameController;
+
     public float baseDamageBoost;
 
     public int cost;
@@ -20,15 +22,24 @@ public class DamageBoost : MonoBehaviour
 
     void OnMouseDown()
     {
-        if ((player.coins > cost) && (player.upgradePoints > 0))
-        {
-            IncreasePlayerDamageBoost();
-        }
+        gameController.OpenPrompt(this.gameObject.name, cost, currentLevel);
     }
 
-    private void IncreasePlayerDamageBoost()
+    public void IncreasePlayerDamageBoost()
     {
-        if (currentLevel < maxLevel)
+        if (currentLevel >= maxLevel)
+        {
+            gameController.DisplayWarningText("Max level reached!");
+        }
+        else if (player.coins < cost)
+        {
+            gameController.DisplayWarningText("Not enough coins!");
+        }
+        else if (player.upgradePoints < 0)
+        {
+            gameController.DisplayWarningText("Not enough upgrade points!");
+        }
+        else
         {
             player.SpendCoins(cost);
 
@@ -38,23 +49,29 @@ public class DamageBoost : MonoBehaviour
 
             cost += 150;
 
-            player.upgradePoints -= 1;
+            player.DecrementUpgradesAvailable();
+
+            gameController.UpdateText(this.gameObject.name, cost, currentLevel);
         }
     }
 
-    private void DecreasePlayerDamageBoost()
+    public void DecreasePlayerDamageBoost()
     {
-        if (currentLevel > 0)
+        if (currentLevel <= 0)
         {
-            player.SpendCoins(cost);
-
+            gameController.DisplayWarningText("Already at the minimum level!");
+        }
+        else
+        {
             currentLevel -= 1;
 
             player.damageBoost = 0.2f * currentLevel;
 
             cost -= 150;
 
-            player.upgradePoints += 1;
+            player.IncrementUpgradesAvailable();
+
+            gameController.UpdateText(this.gameObject.name, cost, currentLevel);
         }
     }
 }

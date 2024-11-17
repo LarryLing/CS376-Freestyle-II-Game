@@ -33,11 +33,15 @@ public class Player : MonoBehaviour
 
     public TMP_Text coinsText;
 
+    public TMP_Text upgradesAvailableText;
+
     public RectTransform currentHealthBar;
 
     void Start()
     {
         coinsText.text = "Coins: " + coins;
+
+        upgradesAvailableText.text = "Upgrades Available: " + upgradePoints;
 
         currentHealthBar.localScale = new Vector3(currentHealth / maxHealth, currentHealthBar.localScale.y, currentHealthBar.localScale.z);
     }
@@ -73,6 +77,24 @@ public class Player : MonoBehaviour
     {
         coins -= coinValue;
         coinsText.text = "Coins: " + coins;
+    }
+
+    public void IncrementUpgradesAvailable()
+    {
+        if (upgradePoints < 6)
+        {
+            upgradePoints += 1;
+            upgradesAvailableText.text = "Upgrades Available: " + upgradePoints;
+        }
+    }
+
+    public void DecrementUpgradesAvailable()
+    {
+        if (upgradePoints > 0)
+        {
+            upgradePoints -= 1;
+            upgradesAvailableText.text = "Upgrades Available: " + upgradePoints;
+        }
     }
 
     private void TakeDamage(int rawDamage)

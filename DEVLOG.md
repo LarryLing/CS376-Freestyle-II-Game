@@ -101,3 +101,12 @@ Each ranged and melee weapon will use their respective classes to initialize the
 - Replaced the `Quick Attack` upgrade to `Damage Boost` upgrade.
 
 - Implemented `Speed Boost`, `Extra Resistance`, `Extra Health`, and `Damage Boost` upgrades to change `Player` traits.
+
+## 11/17/2024 - UI and Gunplay
+- When the player wants to purchase an upgrade, they can click on the sprite and a popup will appear.
+On the popup, they can choose to either purchase an upgrade (which will expend an `Upgrade Point` and `Coins`) or
+downgrade (which will only give them an `Upgrade Point` in return).
+    - The downgrade system aims to push players towards making smarter purchase decisions throughout the game.
+    - As of now, player can only max out on two of the four upgrades, given the number of upgrade points they are given 
+    at the start of the game.
+    - If an upgrade or downgrade actions cannot be completed, a warning text will show up on the bottom right of the screen.

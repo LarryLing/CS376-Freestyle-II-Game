@@ -6,6 +6,8 @@ public class ExtraHealth : MonoBehaviour
 {
     public Player player;
 
+    public GameController gameController;
+
     public float baseMaxHealth;
 
     public float healthRatio;
@@ -25,15 +27,24 @@ public class ExtraHealth : MonoBehaviour
 
     void OnMouseDown()
     {
-        if ((player.coins > cost) && (player.upgradePoints > 0))
-        {
-            IncreasePlayerMaxHealth();
-        }
+        gameController.OpenPrompt(this.gameObject.name, cost, currentLevel);
     }
 
-    private void IncreasePlayerMaxHealth()
+    public void IncreasePlayerMaxHealth()
     {
-        if (currentLevel < maxLevel)
+        if (currentLevel >= maxLevel)
+        {
+            gameController.DisplayWarningText("Max level reached!");
+        }
+        else if (player.coins < cost)
+        {
+            gameController.DisplayWarningText("Not enough coins!");
+        }
+        else if (player.upgradePoints < 0)
+        {
+            gameController.DisplayWarningText("Not enough upgrade points!");
+        }
+        else
         {
             player.SpendCoins(cost);
 
@@ -45,16 +56,20 @@ public class ExtraHealth : MonoBehaviour
 
             cost += 150;
 
-            player.upgradePoints -= 1;
+            player.DecrementUpgradesAvailable();
+
+            gameController.UpdateText(this.gameObject.name, cost, currentLevel);
         }
     }
 
-    private void DecreasePlayerMaxHealth()
+    public void DecreasePlayerMaxHealth()
     {
-        if (currentLevel > 0)
+        if (currentLevel <= 0)
         {
-            player.SpendCoins(cost);
-
+            gameController.DisplayWarningText("Already at the minimum level!");
+        }
+        else
+        {
             currentLevel -= 1;
 
             player.maxHealth = baseMaxHealth * (1.0f * (0.2f * currentLevel));
@@ -66,7 +81,9 @@ public class ExtraHealth : MonoBehaviour
 
             cost -= 150;
 
-            player.upgradePoints += 1;
+            player.IncrementUpgradesAvailable();
+
+            gameController.UpdateText(this.gameObject.name, cost, currentLevel);
         }
     }
 }

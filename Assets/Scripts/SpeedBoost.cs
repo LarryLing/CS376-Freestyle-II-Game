@@ -6,6 +6,8 @@ public class SpeedBoost : MonoBehaviour
 {
     public Player player;
 
+    public GameController gameController;
+
     public float baseMovementSpeed;
 
     public int cost;
@@ -20,15 +22,24 @@ public class SpeedBoost : MonoBehaviour
 
     void OnMouseDown()
     {
-        if ((player.coins > cost) && (player.upgradePoints > 0))
-        {
-            IncreasePlayerMovementSpeed();
-        }
+        gameController.OpenPrompt(this.gameObject.name, cost, currentLevel);
     }
 
-    private void IncreasePlayerMovementSpeed()
+    public void IncreasePlayerMovementSpeed()
     {
-        if (currentLevel < maxLevel)
+        if (currentLevel >= maxLevel)
+        {
+            gameController.DisplayWarningText("Max level reached!");
+        }
+        else if (player.coins < cost)
+        {
+            gameController.DisplayWarningText("Not enough coins!");
+        }
+        else if (player.upgradePoints < 0)
+        {
+            gameController.DisplayWarningText("Not enough upgrade points!");
+        }
+        else
         {
             player.SpendCoins(cost);
 
@@ -38,23 +49,31 @@ public class SpeedBoost : MonoBehaviour
 
             cost += 150;
 
-            player.upgradePoints -= 1;
+            player.DecrementUpgradesAvailable();
+
+            gameController.UpdateText(this.gameObject.name, cost, currentLevel);
         }
     }
 
-    private void DecreasePlayerMovementSpeed()
+    public void DecreasePlayerMovementSpeed()
     {
-        if (currentLevel > 0)
+        if (currentLevel <= 0)
         {
-            player.SpendCoins(cost);
-
+            gameController.DisplayWarningText("Already at the minimum level!");
+        }
+        else
+        {
             currentLevel -= 1;
 
             player.movementSpeed = baseMovementSpeed * (1.0f * (0.2f * currentLevel));
 
             cost -= 150;
 
-            player.upgradePoints += 1;
+            player.IncrementUpgradesAvailable();
+
+            gameController.ClosePrompt(this.gameObject.name);
+
+            gameController.UpdateText(this.gameObject.name, cost, currentLevel);
         }
     }
 }

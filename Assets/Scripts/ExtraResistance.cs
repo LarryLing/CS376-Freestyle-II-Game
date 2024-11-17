@@ -6,6 +6,8 @@ public class ExtraResistance : MonoBehaviour
 {
     public Player player;
 
+    public GameController gameController;
+
     public float baseResistance;
 
     public int cost;
@@ -21,15 +23,24 @@ public class ExtraResistance : MonoBehaviour
 
     void OnMouseDown()
     {
-        if ((player.coins > cost) && (player.upgradePoints > 0))
-        {
-            IncreasePlayerResistance();
-        }
+        gameController.OpenPrompt(this.gameObject.name, cost, currentLevel);
     }
 
-    private void IncreasePlayerResistance()
+    public void IncreasePlayerResistance()
     {
-        if (currentLevel < maxLevel)
+        if (currentLevel >= maxLevel)
+        {
+            gameController.DisplayWarningText("Max level reached!");
+        }
+        else if (player.coins < cost)
+        {
+            gameController.DisplayWarningText("Not enough coins!");
+        }
+        else if (player.upgradePoints < 0)
+        {
+            gameController.DisplayWarningText("Not enough upgrade points!");
+        }
+        else
         {
             player.SpendCoins(cost);
 
@@ -39,21 +50,27 @@ public class ExtraResistance : MonoBehaviour
 
             cost += 150;
 
-            player.upgradePoints -= 1;
+            player.DecrementUpgradesAvailable();
+
+            gameController.UpdateText(this.gameObject.name, cost, currentLevel);
         }
     }
 
-    private void DecreasePlayerResistance()
+    public void DecreasePlayerResistance()
     {
-        if (currentLevel > 0)
+        if (currentLevel <= 0)
         {
-            currentLevel -= 1;
-
+            gameController.DisplayWarningText("Already at the minimum level!");
+        }
+        else
+        {
             player.resistance = 0.2f * currentLevel;
 
             cost -= 150;
 
-            player.upgradePoints += 1;
+            player.IncrementUpgradesAvailable();
+
+            gameController.UpdateText(this.gameObject.name, cost, currentLevel);
         }
     }
 }
