@@ -2,43 +2,59 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpeedBoost : MonoBehaviour, IUpgrade
+public class SpeedBoost : MonoBehaviour
 {
-    public int cost
+    public Player player;
+
+    public float baseMovementSpeed;
+
+    public int cost;
+
+    public int currentLevel = 0;
+
+    public int maxLevel = 3;
+
+    void Start() {
+        baseMovementSpeed = player.movementSpeed;
+    }
+
+    void OnMouseDown()
     {
-        get
+        if ((player.coins > cost) && (player.upgradePoints > 0))
         {
-            return cost;
+            IncreasePlayerMovementSpeed();
         }
     }
-    public float traitMultiplierValue
+
+    private void IncreasePlayerMovementSpeed()
     {
-        get
+        if (currentLevel < maxLevel)
         {
-            return traitMultiplierValue;
+            player.SpendCoins(cost);
+
+            currentLevel += 1;
+
+            player.movementSpeed = baseMovementSpeed * (1.0f + (0.2f * currentLevel));
+
+            cost += 150;
+
+            player.upgradePoints -= 1;
         }
     }
 
-    void Start()
+    private void DecreasePlayerMovementSpeed()
     {
+        if (currentLevel > 0)
+        {
+            player.SpendCoins(cost);
 
-    }
+            currentLevel -= 1;
 
-    void Update()
-    {
+            player.movementSpeed = baseMovementSpeed * (1.0f * (0.2f * currentLevel));
 
-    }
+            cost -= 150;
 
-    bool IUpgrade.AddToUpgradesList()
-    {
-        return false;
-    }
-    void IUpgrade.IncreasePlayerTraitValue()
-    {
-        return;
-    }
-    void IUpgrade.ResetPlayerTraitValue()
-    {
-        return;
+            player.upgradePoints += 1;
+        }
     }
 }

@@ -2,43 +2,58 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExtraResistance : MonoBehaviour, IUpgrade
+public class ExtraResistance : MonoBehaviour
 {
-    public int cost
-    {
-        get
-        {
-            return cost;
-        }
-    }
-    public float traitMultiplierValue
-    {
-        get
-        {
-            return traitMultiplierValue;
-        }
-    }
+    public Player player;
+
+    public float baseResistance;
+
+    public int cost;
+
+    public int currentLevel = 0;
+
+    public int maxLevel = 3;
 
     void Start()
     {
-
+        baseResistance = player.resistance;
     }
 
-    void Update()
+    void OnMouseDown()
     {
-
+        if ((player.coins > cost) && (player.upgradePoints > 0))
+        {
+            IncreasePlayerResistance();
+        }
     }
 
-    bool IUpgrade.AddToUpgradesList()
+    private void IncreasePlayerResistance()
     {
-        return false;
+        if (currentLevel < maxLevel)
+        {
+            player.SpendCoins(cost);
+
+            currentLevel += 1;
+
+            player.resistance = 0.2f * currentLevel;
+
+            cost += 150;
+
+            player.upgradePoints -= 1;
+        }
     }
-    void IUpgrade.IncreasePlayerTraitValue()
+
+    private void DecreasePlayerResistance()
     {
-        return;
-    }
-    void IUpgrade.ResetPlayerTraitValue()
-    {
-        return;
+        if (currentLevel > 0)
+        {
+            currentLevel -= 1;
+
+            player.resistance = 0.2f * currentLevel;
+
+            cost -= 150;
+
+            player.upgradePoints += 1;
+        }
     }
 }

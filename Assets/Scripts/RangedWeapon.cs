@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class RangedWeapon : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class RangedWeapon : MonoBehaviour
     public GameObject bulletPrefab;
 
     public int cost;
+
+    public int magazineSize;
+
+    public int bulletsLeft;
 
     private float equipRadius = 6f;
 
@@ -25,37 +30,28 @@ public class RangedWeapon : MonoBehaviour
 
     public float currentReloadTime;
 
-    public bool canAttack;
+    public float damage;
+
+    public bool canFire;
 
     public bool isEquippedByPlayer;
 
     public bool isAutomatic;
 
-    public bool hasInfiniteMagazine;
+    public bool purchasedByPlayer;
 
-    public int magazineSize;
-
-    public int bulletsRemainingInMagazine;
-
-    void Start()
-    {
-        gameObject.SetActive(true);
-
-        canAttack = false;
-
-        isEquippedByPlayer = false;
-    }
+    public TMP_Text magazineText;
 
     void Update()
     {
-        if (canAttack && isEquippedByPlayer)
+        if (canFire && isEquippedByPlayer)
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire2"))
             {
                 Shoot();
 
                 currentAttackTime = 0.0f;
-                canAttack = false;
+                canFire = false;
             }
         }
         else
@@ -66,7 +62,7 @@ public class RangedWeapon : MonoBehaviour
             }
             else
             {
-                canAttack = true;
+                canFire = true;
             }
         }
     }
@@ -81,20 +77,27 @@ public class RangedWeapon : MonoBehaviour
 
     public void Equip()
     {
-        if (player.coins >= cost)
+        if (purchasedByPlayer || player.coins >= cost)
         {
             if (player.weaponInHand == null)
             {
                 player.weaponInHand = this.gameObject;
             }
-            if (player.weaponInHand != this.gameObject)
+            else if (player.weaponInHand != this.gameObject)
             {
                 player.weaponInHand.GetComponent<RangedWeapon>().Dequip();
 
                 player.weaponInHand = this.gameObject;
             }
 
-            player.SpendCoins(cost);
+            if (!purchasedByPlayer)
+            {
+                player.SpendCoins(cost);
+
+                purchasedByPlayer = true;
+            }
+
+            magazineText.text = bulletsLeft + " / " + magazineSize;
 
             transform.SetParent(player.transform, false);
 
@@ -114,7 +117,7 @@ public class RangedWeapon : MonoBehaviour
 
         currentAttackTime = 0;
 
-        gunHandle.position = new Vector2(0, 0);
+        gunHandle.position = player.GetComponent<Transform>().position;
     }
 
     void Shoot()
@@ -123,6 +126,15 @@ public class RangedWeapon : MonoBehaviour
 
         Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
         bulletRb.AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);
+
+        bulletsLeft -= 1;
+
+        magazineText.text = bulletsLeft + " / " + magazineSize;
+
+        if (bulletsLeft == 0)
+        {
+            canFire = false;
+        }
     }
 
     private bool PlayerIsInRange()

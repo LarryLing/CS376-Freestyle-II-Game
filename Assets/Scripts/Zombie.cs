@@ -6,7 +6,7 @@ public class Zombie : MonoBehaviour
 {
     static int zombieCount;
 
-    public IWeapon currentWeapon;
+    public GameObject currentWeapon;
 
     public float currentHealth;
 
@@ -14,11 +14,7 @@ public class Zombie : MonoBehaviour
 
     public float movementSpeed;
 
-    public float resistance;
-
-    public float attackSpeed;
-
-    public int coinValue;
+    public int resistanceLevel = 0;
 
     void Start()
     {
@@ -44,8 +40,13 @@ public class Zombie : MonoBehaviour
 
     }
 
-    void Die()
+    void TakeDamage(float baseDamage)
     {
+        currentHealth -= (1 - (resistanceLevel * 0.2f)) * baseDamage;
 
+        if (currentHealth <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

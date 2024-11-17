@@ -77,15 +77,16 @@
 - `Elder Gun` extends `IRangedWeapon`
 
 ## 11/16/2024 - Game Setup
-- Create Game Sprites
+- Created Game Sprites
     - Player Sprite
     - 3 Zombie Sprites
     - 5 Weapon Sprites
     - 4 Upgrade Sprites
     - 2 ObstacleSprites
+
 - Setup Game Object hierarchies and initialize Components
 
-- The interface `IZombie` is been removed in favor of the `Zombie` class. Each zombie type
+- The interface `IZombie` has been removed in favor of the `Zombie` class. Each zombie type
 will have use the `Zombie` class to initialize its traits.
 
 - The interfaces `IRangedWeapon` and `IMeleeWeapon` will be removed in favor of `RangedWeapon` and `MeleeWeapon` classes.
@@ -93,4 +94,10 @@ Each ranged and melee weapon will use their respective classes to initialize the
 
 - Implemented player and camera movement.
 
-- Implemented RangedWeapon firing and equipping.
+- Implemented RangedWeapon firing, equipping, and dropping.
+
+- Implemented GUI to show total number of coins, current health, current amount of ammo, zombies remaining, and upgrade points available.
+
+- Replaced the `Quick Attack` upgrade to `Damage Boost` upgrade.
+
+- Implemented `Speed Boost`, `Extra Resistance`, `Extra Health`, and `Damage Boost` upgrades to change `Player` traits.

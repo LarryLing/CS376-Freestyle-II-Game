@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
     public GameObject weaponInHand;
+
+    public GameController gameController;
 
     public float currentHealth = 20f;
 
@@ -14,24 +17,37 @@ public class Player : MonoBehaviour
 
     public float resistance = 0f;
 
+    public float damageBoost = 0f;
+
     public int coins = 0;
 
-    public List<IUpgrade> upgrades;
+    public int upgradePoints = 6;
 
     public Rigidbody2D rb;
 
+    public Camera mainCamera;
+
     Vector2 movementVector;
 
-    public Camera camera;
-
     Vector2 mousePosition;
+
+    public TMP_Text coinsText;
+
+    public RectTransform currentHealthBar;
+
+    void Start()
+    {
+        coinsText.text = "Coins: " + coins;
+
+        currentHealthBar.localScale = new Vector3(currentHealth / maxHealth, currentHealthBar.localScale.y, currentHealthBar.localScale.z);
+    }
 
     void Update()
     {
         movementVector.x = Input.GetAxisRaw("Horizontal");
         movementVector.y = Input.GetAxisRaw("Vertical");
 
-        mousePosition = camera.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
     }
 
     void FixedUpdate()
@@ -43,23 +59,26 @@ public class Player : MonoBehaviour
 
         rb.rotation = angle;
 
-        Transform cameraTransform = camera.GetComponent<Transform>();
+        Transform cameraTransform = mainCamera.GetComponent<Transform>();
         cameraTransform.position = new Vector3(transform.position.x, transform.position.y, cameraTransform.position.z);
     }
 
     public void GetCoins(int coinValue)
     {
         coins += coinValue;
+        coinsText.text = "Coins: " + coins;
     }
 
     public void SpendCoins(int coinValue)
     {
         coins -= coinValue;
+        coinsText.text = "Coins: " + coins;
     }
 
-    private void TakeDamage(int damageTaken)
+    private void TakeDamage(int rawDamage)
     {
-
+        currentHealth -= rawDamage * (1f - resistance);
+        currentHealthBar.localScale = new Vector3(currentHealth / maxHealth, currentHealthBar.localScale.y, currentHealthBar.localScale.z);
     }
 
     private void Heal(int amountHealed)

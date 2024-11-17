@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public Player player;
+
+    void Awake()
+    {
+        player = FindObjectOfType<Player>();
+    }
+
     void OnCollisionEnter2D(Collision2D collider)
     {
         GameObject go = collider.gameObject;
 
         if (go.GetComponent<Zombie>() != null)
         {
-            gameObject.SendMessage("GetCoins", go.GetComponent<Zombie>().coinValue);
+            player.GetCoins(15);
         }
 
         Destroy(gameObject);
