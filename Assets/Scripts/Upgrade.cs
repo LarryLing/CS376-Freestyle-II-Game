@@ -89,6 +89,8 @@ public class Upgrade : MonoBehaviour
             else if (name == "ExtraHealth")
             {
                 player.maxHealth = basePlayerStat * (1.0f + (0.2f * currentLevel));
+
+                player.UpdateHealthBar();
             }
             else if (name == "DamageBoost")
             {
@@ -126,6 +128,13 @@ public class Upgrade : MonoBehaviour
             else if (name == "ExtraHealth")
             {
                 player.maxHealth = basePlayerStat * (1.0f + (0.2f * currentLevel));
+
+                if (player.currentHealth > player.maxHealth)
+                {
+                    player.currentHealth = player.maxHealth;
+                }
+
+                player.UpdateHealthBar();
             }
             else if (name == "DamageBoost")
             {

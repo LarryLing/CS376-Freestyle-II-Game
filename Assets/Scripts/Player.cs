@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using TMPro;
 
 public class Player : MonoBehaviour
@@ -8,6 +9,20 @@ public class Player : MonoBehaviour
     public GameObject weaponInHand;
 
     public UIController uiController;
+
+    public Rigidbody2D rb;
+
+    public Camera mainCamera;
+
+    public TMP_Text coinsText;
+
+    public TMP_Text upgradesAvailableText;
+
+    public RectTransform currentHealthBar;
+
+    public UnityEvent OnDied;
+
+    public UnityEvent OnDamaged;
 
     public float currentHealth = 20f;
 
@@ -23,19 +38,11 @@ public class Player : MonoBehaviour
 
     public int upgradePoints = 6;
 
-    public Rigidbody2D rb;
+    public bool isInvincible;
 
-    public Camera mainCamera;
+    private Vector2 movementVector;
 
-    Vector2 movementVector;
-
-    Vector2 mousePosition;
-
-    public TMP_Text coinsText;
-
-    public TMP_Text upgradesAvailableText;
-
-    public RectTransform currentHealthBar;
+    private Vector2 mousePosition;
 
     void Start()
     {
@@ -100,9 +107,53 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void TakeDamage(int rawDamage)
+    public void TakeDamage(float rawDamage)
     {
+        if (currentHealth == 0)
+        {
+            return;
+        }
+
+        if (isInvincible)
+        {
+            return;
+        }
+
         currentHealth -= rawDamage * (1f - resistance);
+
+        if (currentHealth < 0)
+        {
+            currentHealth = 0;
+        }
+
+        UpdateHealthBar();
+
+        if (currentHealth == 0)
+        {
+            OnDied.Invoke();
+        }
+        else
+        {
+            OnDamaged.Invoke();
+        }
+    }
+
+    public void UpdateHealthBar()
+    {
         currentHealthBar.localScale = new Vector3(currentHealth / maxHealth, currentHealthBar.localScale.y, currentHealthBar.localScale.z);
+    }
+
+    public void StartInvincibility(float duration)
+    {
+        StartCoroutine(InvincibilityCoroutine(duration));
+    }
+
+    private IEnumerator InvincibilityCoroutine(float duration)
+    {
+        isInvincible = true;
+
+        yield return new WaitForSeconds(duration);
+
+        isInvincible = false;
     }
 }

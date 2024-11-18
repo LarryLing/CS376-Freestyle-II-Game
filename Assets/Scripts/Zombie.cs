@@ -1,20 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Zombie : MonoBehaviour
 {
-    static int zombieCount;
-
     public GameObject currentWeapon;
 
     public AudioSource audioSource;
 
     public SpriteRenderer spriteRenderer;
 
+    public GameController gameController;
+
     public Rigidbody2D rb;
 
     public CircleCollider2D circleCollider;
+
+    private Transform playerTransform;
 
     public float currentHealth;
 
@@ -22,11 +25,30 @@ public class Zombie : MonoBehaviour
 
     public float movementSpeed;
 
-    public float damage;
+    private float rotationSpeed;
 
-    public float attackCooldown;
+    public float attackDamage;
 
-    public int resistanceLevel = 0;
+    private float awarenessRadius;
+
+    public int resistanceLevel;
+
+    private bool chasingPlayer;
+
+    public Vector2 directionToPlayer;
+
+    public Vector2 targetDirection;
+
+    void Awake()
+    {
+        playerTransform = FindObjectOfType<Player>().GetComponent<Transform>();
+
+        gameController = FindObjectOfType<GameController>().GetComponent<GameController>();
+
+        awarenessRadius = 30f;
+
+        rotationSpeed = 400f;
+    }
 
     void Start()
     {
@@ -37,28 +59,73 @@ public class Zombie : MonoBehaviour
 
     void Update()
     {
+        Vector2 distanceFromPlayer = playerTransform.position - transform.position;
+        directionToPlayer = distanceFromPlayer.normalized;
 
+        chasingPlayer = distanceFromPlayer.magnitude <= awarenessRadius;
     }
 
-    static void IncreaseZombieCount(int increaseCount)
+    void FixedUpdate()
     {
-        zombieCount += increaseCount;
+        UpdateTargetDirection();
+        RotateTowardsTarget();
+        SetVelocity();
     }
-    static void DecreaseZombieCount(int decreaseCount)
+
+    void OnCollisionStay2D(Collision2D collider)
     {
-        zombieCount -= decreaseCount;
+        if (collider.gameObject.GetComponent<Player>())
+        {
+            Player player = collider.gameObject.GetComponent<Player>();
+
+            player.TakeDamage(attackDamage);
+        }
     }
 
-    void Attack()
+    private void UpdateTargetDirection()
     {
-
+        if (chasingPlayer)
+        {
+            targetDirection = directionToPlayer;
+        }
+        else
+        {
+            targetDirection = Vector2.zero;
+        }
     }
 
-    public void TakeDamage(float baseDamage)
+    private void RotateTowardsTarget()
+    {
+        if (targetDirection == Vector2.zero)
+        {
+            return;
+        }
+
+        Quaternion targetRotation = Quaternion.LookRotation(transform.forward, targetDirection);
+        Quaternion rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+        rb.SetRotation(rotation);
+    }
+
+    private void SetVelocity()
+    {
+        if (targetDirection == Vector2.zero)
+        {
+            rb.velocity = Vector2.zero;
+        }
+        else
+        {
+            rb.velocity = transform.up * movementSpeed;
+        }
+    }
+
+    public void TakeDamage(float baseattackDamage)
     {
         audioSource.Play();
 
-        currentHealth -= (1 - (resistanceLevel * 0.2f)) * baseDamage;
+        currentHealth -= (1 - (resistanceLevel * 0.2f)) * baseattackDamage;
+
+        rb.AddForce(transform.forward * -25f);
 
         if (currentHealth <= 0)
         {
@@ -66,9 +133,9 @@ public class Zombie : MonoBehaviour
 
             circleCollider.enabled = false;
 
-            Destroy(rb);
-
             Destroy(this.gameObject, 0.5f);
+
+            gameController.zombiesKilled += 1;
         }
     }
 }

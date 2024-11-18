@@ -20,10 +20,10 @@ public class Bullet : MonoBehaviour
         if (go.GetComponent<Zombie>() != null)
         {
             player.GetCoins(15);
+
             go.GetComponent<Zombie>().TakeDamage(bulletDamage);
 
             Destroy(gameObject);
         }
-
     }
 }

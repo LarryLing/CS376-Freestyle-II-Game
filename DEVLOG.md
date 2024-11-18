@@ -116,3 +116,31 @@ downgrade (which will only give them an `Upgrade Point` in return).
 - Implemented sound effects for shooting, bullets hitting zombies, reloading, upgrading stats, and downgrading stats.
 
 - Melee weapons will no longer be implemented in the game. Instead, there will be more variations of guns such as burst weapons and shotguns, each with their own firing sounds.
+
+## 11/18/2024 - Enemy AI, Map Creation, and Zombie Waves
+- The map will consist of a large rectangular boundary so that stray bullets will always be destroyed upon a collision. Throughout the map, there will be 6 different zombie
+spawner points. The upgrades will also be spread out throughout the map. Crates of different sizes will also be placed throughout the map to serve as places for the player to take cover.
+
+- The game will consist of 5 waves. The first wave will only consist of normal zombies. As the waves progress, the probability of speed and tank zombies will increase and the total number of zombies that will spawned in the wave
+will increase. The percentages below will list out the probability of spawning each type of zombie during each wave (Normal/Speed/Tank).
+    - Wave 1: 100%/0%/0%
+    - Wave 2: 80%/10%/10%
+    - Wave 3: 60%/20%/20%
+    - Wave 4: 40%/30%/30%
+    - Wave 5: 20%/40%/40%
+
+- The end of each wave will grant the player a 30 second grace period where they can choose to buy new weapons or perform upgrades/downgrades. In addition, the player will be allowed to buy weapons and perform upgrades and downgrades during the wave. 
+Although healing will not be provided during the wave, the end of each wave will bring the player back to full health.
+
+- The player wins by surviving each wave.
+
+- Zombies have a radius in which they can detect a player. One a player has been detected, the enemy will move towards that player until the player moves out of the detection radius.
+
+- Implemented player damage system. The player will take damage as long as they are in contact with a zombie, however they have an invincibility period of 1.5 seconds so that their health does not drain 
+too quickly.
+
+- Zombies will now take a small amount of knockback upon taking damage.
+
+- Implemented a game over screen that will display the number of zombies killed, the number of waves survived, and the an option to try again.
+
+- Fixed a bug where the health bar was not scaling correctly when the player upgraded/downgraded their max health.
