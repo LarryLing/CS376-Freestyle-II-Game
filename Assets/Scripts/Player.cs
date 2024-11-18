@@ -105,9 +105,4 @@ public class Player : MonoBehaviour
         currentHealth -= rawDamage * (1f - resistance);
         currentHealthBar.localScale = new Vector3(currentHealth / maxHealth, currentHealthBar.localScale.y, currentHealthBar.localScale.z);
     }
-
-    private void Heal(int amountHealed)
-    {
-
-    }
 }

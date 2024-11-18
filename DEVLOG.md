@@ -115,4 +115,4 @@ downgrade (which will only give them an `Upgrade Point` in return).
 
 - Implemented sound effects for shooting, bullets hitting zombies, reloading, upgrading stats, and downgrading stats.
 
-- Melee weapons will no longer be implemented in the game.
+- Melee weapons will no longer be implemented in the game. Instead, there will be more variations of guns such as burst weapons and shotguns, each with their own firing sounds.
