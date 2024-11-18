@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ExtraResistance : MonoBehaviour
 {
     public Player player;
 
-    public GameController gameController;
+    public UIController uiController;
 
     public float baseResistance;
 
@@ -19,26 +20,35 @@ public class ExtraResistance : MonoBehaviour
     void Start()
     {
         baseResistance = player.resistance;
+
+        EventTrigger trigger = GetComponent<EventTrigger>();
+        EventTrigger.Entry entry = new EventTrigger.Entry();
+        entry.eventID = EventTriggerType.PointerUp;
+        entry.callback.AddListener((data) => { OnPointerUpDelegate((PointerEventData)data); });
+        trigger.triggers.Add(entry);
     }
 
-    void OnMouseDown()
+    public void OnPointerUpDelegate(PointerEventData data)
     {
-        gameController.OpenPrompt(this.gameObject.name, cost, currentLevel);
+        if (data.button == PointerEventData.InputButton.Left)
+        {
+            uiController.OpenPrompt(this.gameObject.name, cost, currentLevel);
+        }
     }
 
     public void IncreasePlayerResistance()
     {
         if (currentLevel >= maxLevel)
         {
-            gameController.DisplayWarningText("Max level reached!");
+            uiController.DisplayWarningText("Max level reached!");
         }
         else if (player.coins < cost)
         {
-            gameController.DisplayWarningText("Not enough coins!");
+            uiController.DisplayWarningText("Not enough coins!");
         }
         else if (player.upgradePoints < 0)
         {
-            gameController.DisplayWarningText("Not enough upgrade points!");
+            uiController.DisplayWarningText("Cannot downgrade further!");
         }
         else
         {
@@ -52,7 +62,7 @@ public class ExtraResistance : MonoBehaviour
 
             player.DecrementUpgradesAvailable();
 
-            gameController.UpdateText(this.gameObject.name, cost, currentLevel);
+            uiController.UpdateText(this.gameObject.name, cost, currentLevel);
         }
     }
 
@@ -60,7 +70,7 @@ public class ExtraResistance : MonoBehaviour
     {
         if (currentLevel <= 0)
         {
-            gameController.DisplayWarningText("Already at the minimum level!");
+            uiController.DisplayWarningText("Already at the minimum level!");
         }
         else
         {
@@ -70,7 +80,7 @@ public class ExtraResistance : MonoBehaviour
 
             player.IncrementUpgradesAvailable();
 
-            gameController.UpdateText(this.gameObject.name, cost, currentLevel);
+            uiController.UpdateText(this.gameObject.name, cost, currentLevel);
         }
     }
 }

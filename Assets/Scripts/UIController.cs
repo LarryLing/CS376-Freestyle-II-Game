@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class GameController : MonoBehaviour
+public class UIController : MonoBehaviour
 {
     public Player player;
 
@@ -28,6 +28,8 @@ public class GameController : MonoBehaviour
     public float warningDuration = 2f;
 
     public float timeUntilWarningClose;
+
+    public bool isUIOpen;
 
     void Update()
     {
@@ -71,6 +73,8 @@ public class GameController : MonoBehaviour
 
             damageBoostCanvas.SetActive(true);
         }
+
+        isUIOpen = true;
     }
 
     public void ClosePrompt(string name)
@@ -91,6 +95,8 @@ public class GameController : MonoBehaviour
         {
             damageBoostCanvas.SetActive(false);
         }
+
+        isUIOpen = false;
     }
 
     public void DisplayWarningText(string message)

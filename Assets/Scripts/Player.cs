@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 {
     public GameObject weaponInHand;
 
-    public GameController gameController;
+    public UIController uiController;
 
     public float currentHealth = 20f;
 
@@ -56,15 +56,18 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movementVector * movementSpeed * Time.fixedDeltaTime);
+        if (!uiController.isUIOpen)
+        {
+            rb.MovePosition(rb.position + movementVector * movementSpeed * Time.fixedDeltaTime);
 
-        Vector2 lookDirection = mousePosition - rb.position;
-        float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg - 90f;
+            Vector2 lookDirection = mousePosition - rb.position;
+            float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg - 90f;
 
-        rb.rotation = angle;
+            rb.rotation = angle;
 
-        Transform cameraTransform = mainCamera.GetComponent<Transform>();
-        cameraTransform.position = new Vector3(transform.position.x, transform.position.y, cameraTransform.position.z);
+            Transform cameraTransform = mainCamera.GetComponent<Transform>();
+            cameraTransform.position = new Vector3(transform.position.x, transform.position.y, cameraTransform.position.z);
+        }
     }
 
     public void GetCoins(int coinValue)

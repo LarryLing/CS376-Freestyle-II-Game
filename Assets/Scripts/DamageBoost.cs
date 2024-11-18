@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class DamageBoost : MonoBehaviour
 {
     public Player player;
 
-    public GameController gameController;
+    public UIController uiController;
 
     public float baseDamageBoost;
 
@@ -18,26 +19,35 @@ public class DamageBoost : MonoBehaviour
 
     void Start() {
         baseDamageBoost = player.damageBoost;
+
+        EventTrigger trigger = GetComponent<EventTrigger>();
+        EventTrigger.Entry entry = new EventTrigger.Entry();
+        entry.eventID = EventTriggerType.PointerUp;
+        entry.callback.AddListener((data) => { OnPointerUpDelegate((PointerEventData)data); });
+        trigger.triggers.Add(entry);
     }
 
-    void OnMouseDown()
+    public void OnPointerUpDelegate(PointerEventData data)
     {
-        gameController.OpenPrompt(this.gameObject.name, cost, currentLevel);
+        if (data.button == PointerEventData.InputButton.Left)
+        {
+            uiController.OpenPrompt(this.gameObject.name, cost, currentLevel);
+        }
     }
 
     public void IncreasePlayerDamageBoost()
     {
         if (currentLevel >= maxLevel)
         {
-            gameController.DisplayWarningText("Max level reached!");
+            uiController.DisplayWarningText("Max level reached!");
         }
         else if (player.coins < cost)
         {
-            gameController.DisplayWarningText("Not enough coins!");
+            uiController.DisplayWarningText("Not enough coins!");
         }
         else if (player.upgradePoints < 0)
         {
-            gameController.DisplayWarningText("Not enough upgrade points!");
+            uiController.DisplayWarningText("Not enough upgrade points!");
         }
         else
         {
@@ -51,7 +61,7 @@ public class DamageBoost : MonoBehaviour
 
             player.DecrementUpgradesAvailable();
 
-            gameController.UpdateText(this.gameObject.name, cost, currentLevel);
+            uiController.UpdateText(this.gameObject.name, cost, currentLevel);
         }
     }
 
@@ -59,7 +69,7 @@ public class DamageBoost : MonoBehaviour
     {
         if (currentLevel <= 0)
         {
-            gameController.DisplayWarningText("Already at the minimum level!");
+            uiController.DisplayWarningText("Cannot downgrade further!");
         }
         else
         {
@@ -71,7 +81,7 @@ public class DamageBoost : MonoBehaviour
 
             player.IncrementUpgradesAvailable();
 
-            gameController.UpdateText(this.gameObject.name, cost, currentLevel);
+            uiController.UpdateText(this.gameObject.name, cost, currentLevel);
         }
     }
 }

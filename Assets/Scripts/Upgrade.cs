@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ExtraHealth : MonoBehaviour
+public class Upgrade : MonoBehaviour
 {
     public Player player;
 
     public UIController uiController;
 
-    public float baseMaxHealth;
-
-    public float healthRatio;
+    public float basePlayerStat;
 
     public int cost;
 
@@ -19,11 +17,23 @@ public class ExtraHealth : MonoBehaviour
 
     public int maxLevel = 3;
 
-    void Start()
-    {
-        baseMaxHealth = player.maxHealth;
-
-        healthRatio = player.currentHealth / player.maxHealth;
+    void Start() {
+        if (name == "SpeedBoost")
+        {
+            basePlayerStat = player.movementSpeed;
+        }
+        else if (name == "ExtraResistance")
+        {
+            basePlayerStat = player.resistance;
+        }
+        else if (name == "ExtraHealth")
+        {
+            basePlayerStat = player.maxHealth;
+        }
+        else if (name == "DamageBoost")
+        {
+            basePlayerStat = player.damageBoost;
+        }
 
         EventTrigger trigger = GetComponent<EventTrigger>();
         EventTrigger.Entry entry = new EventTrigger.Entry();
@@ -40,7 +50,7 @@ public class ExtraHealth : MonoBehaviour
         }
     }
 
-    public void IncreasePlayerMaxHealth()
+    public void IncreasePlayerStats()
     {
         if (currentLevel >= maxLevel)
         {
@@ -60,9 +70,22 @@ public class ExtraHealth : MonoBehaviour
 
             currentLevel += 1;
 
-            player.maxHealth = baseMaxHealth * (1.0f + (0.2f * currentLevel));
-
-            player.currentHealth = player.maxHealth * healthRatio;
+            if (name == "SpeedBoost")
+            {
+                player.movementSpeed = basePlayerStat * (1.0f + (0.2f * currentLevel));
+            }
+            else if (name == "ExtraResistance")
+            {
+                player.resistance = 0.2f * currentLevel;
+            }
+            else if (name == "ExtraHealth")
+            {
+                player.maxHealth = basePlayerStat * (1.0f + (0.2f * currentLevel));
+            }
+            else if (name == "DamageBoost")
+            {
+                player.damageBoost = 0.2f * currentLevel;
+            }
 
             cost += 150;
 
@@ -72,7 +95,7 @@ public class ExtraHealth : MonoBehaviour
         }
     }
 
-    public void DecreasePlayerMaxHealth()
+    public void DecreasePlayerStats()
     {
         if (currentLevel <= 0)
         {
@@ -82,11 +105,21 @@ public class ExtraHealth : MonoBehaviour
         {
             currentLevel -= 1;
 
-            player.maxHealth = baseMaxHealth * (1.0f * (0.2f * currentLevel));
-
-            if (player.currentHealth > player.maxHealth)
+            if (name == "SpeedBoost")
             {
-                player.currentHealth = player.maxHealth;
+                player.movementSpeed = basePlayerStat * (1.0f + (0.2f * currentLevel));
+            }
+            else if (name == "ExtraResistance")
+            {
+                player.resistance = 0.2f * currentLevel;
+            }
+            else if (name == "ExtraHealth")
+            {
+                player.maxHealth = basePlayerStat * (1.0f + (0.2f * currentLevel));
+            }
+            else if (name == "DamageBoost")
+            {
+                player.damageBoost = 0.2f * currentLevel;
             }
 
             cost -= 150;

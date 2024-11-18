@@ -110,3 +110,7 @@ downgrade (which will only give them an `Upgrade Point` in return).
     - As of now, player can only max out on two of the four upgrades, given the number of upgrade points they are given 
     at the start of the game.
     - If an upgrade or downgrade actions cannot be completed, a warning text will show up on the bottom right of the screen.
+
+- Upon opening of the UI, other game objects will no longer respond to clicks and user movement input will not be read. Once the user closes the UI, game object and movement input will return to normal function.
+
+- Implemented sound effects for shooting, bullets hitting zombies, upgrading stats, and downgrading stats.

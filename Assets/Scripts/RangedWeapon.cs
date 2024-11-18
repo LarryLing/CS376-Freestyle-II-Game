@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class RangedWeapon : MonoBehaviour
 {
@@ -42,6 +43,15 @@ public class RangedWeapon : MonoBehaviour
 
     public TMP_Text magazineText;
 
+    void Start()
+    {
+        EventTrigger trigger = GetComponent<EventTrigger>();
+        EventTrigger.Entry entry = new EventTrigger.Entry();
+        entry.eventID = EventTriggerType.PointerUp;
+        entry.callback.AddListener((data) => { OnPointerUpDelegate((PointerEventData)data); });
+        trigger.triggers.Add(entry);
+    }
+
     void Update()
     {
         if (canFire && isEquippedByPlayer)
@@ -67,9 +77,9 @@ public class RangedWeapon : MonoBehaviour
         }
     }
 
-    void OnMouseDown()
+    public void OnPointerUpDelegate(PointerEventData data)
     {
-        if (!isEquippedByPlayer && PlayerIsInRange())
+        if (!isEquippedByPlayer && PlayerIsInRange() && (data.button == PointerEventData.InputButton.Left))
         {
             Equip();
         }

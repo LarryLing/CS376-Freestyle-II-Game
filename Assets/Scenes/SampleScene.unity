@@ -529,9 +529,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 552497546}
-        m_TargetAssemblyTypeName: ExtraHealth, Assembly-CSharp
-        m_MethodName: IncreasePlayerMaxHealth
+      - m_Target: {fileID: 552497549}
+        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
+        m_MethodName: IncreasePlayerStats
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -589,6 +589,7 @@ GameObject:
   m_Component:
   - component: {fileID: 49894363}
   - component: {fileID: 49894366}
+  - component: {fileID: 49894367}
   - component: {fileID: 49894365}
   m_Layer: 0
   m_Name: Pistol
@@ -690,6 +691,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.1108017, y: 4.4911084}
   m_EdgeRadius: 0
+--- !u!114 &49894367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 49894361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &84114519
 GameObject:
   m_ObjectHideFlags: 0
@@ -1202,7 +1216,7 @@ GameObject:
   - component: {fileID: 171734874}
   - component: {fileID: 171734873}
   m_Layer: 0
-  m_Name: GameController
+  m_Name: UIController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1237,6 +1251,7 @@ MonoBehaviour:
   warningText: {fileID: 1511001310}
   warningDuration: 2
   timeUntilWarningClose: 0
+  isUIOpen: 0
 --- !u!4 &171734874
 Transform:
   m_ObjectHideFlags: 0
@@ -1803,6 +1818,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1884,6 +1900,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56666c5a40171f54783dd416a44f42bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxRayIntersections: 0
 --- !u!1 &547265669
 GameObject:
   m_ObjectHideFlags: 0
@@ -2029,7 +2061,8 @@ GameObject:
   - component: {fileID: 552497545}
   - component: {fileID: 552497544}
   - component: {fileID: 552497547}
-  - component: {fileID: 552497546}
+  - component: {fileID: 552497548}
+  - component: {fileID: 552497549}
   m_Layer: 0
   m_Name: ExtraHealth
   m_TagString: Untagged
@@ -2104,25 +2137,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &552497546
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 552497543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59c0a3738e2b2804b960c3ca851096b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 1988368456}
-  gameController: {fileID: 171734873}
-  baseMaxHealth: 0
-  healthRatio: 0
-  cost: 400
-  currentLevel: 0
-  maxLevel: 3
 --- !u!61 &552497547
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2168,6 +2182,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.3684025, y: 5.136404}
   m_EdgeRadius: 0
+--- !u!114 &552497548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 552497543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+--- !u!114 &552497549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 552497543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e13729efa33145468e81c38e29925f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1988368456}
+  uiController: {fileID: 171734873}
+  basePlayerStat: 0
+  cost: 500
+  currentLevel: 0
+  maxLevel: 3
 --- !u!1 &588380545
 GameObject:
   m_ObjectHideFlags: 0
@@ -2675,9 +2720,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1754376991}
-        m_TargetAssemblyTypeName: SpeedBoost, Assembly-CSharp
-        m_MethodName: IncreasePlayerMovementSpeed
+      - m_Target: {fileID: 1754376994}
+        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
+        m_MethodName: IncreasePlayerStats
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2808,9 +2853,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1032545145}
-        m_TargetAssemblyTypeName: ExtraResistance, Assembly-CSharp
-        m_MethodName: IncreasePlayerResistance
+      - m_Target: {fileID: 1032545148}
+        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
+        m_MethodName: IncreasePlayerStats
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3965,7 +4010,8 @@ GameObject:
   - component: {fileID: 1032545144}
   - component: {fileID: 1032545143}
   - component: {fileID: 1032545146}
-  - component: {fileID: 1032545145}
+  - component: {fileID: 1032545147}
+  - component: {fileID: 1032545148}
   m_Layer: 0
   m_Name: ExtraResistance
   m_TagString: Untagged
@@ -4040,24 +4086,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1032545145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1032545142}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c3243621b3dc8a4ba1a449182cd6780, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 1988368456}
-  gameController: {fileID: 171734873}
-  baseResistance: 0
-  cost: 0
-  currentLevel: 0
-  maxLevel: 3
 --- !u!61 &1032545146
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4103,6 +4131,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.303126, y: 5.585773}
   m_EdgeRadius: 0
+--- !u!114 &1032545147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1032545142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+--- !u!114 &1032545148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1032545142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e13729efa33145468e81c38e29925f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1988368456}
+  uiController: {fileID: 171734873}
+  basePlayerStat: 0
+  cost: 500
+  currentLevel: 0
+  maxLevel: 3
 --- !u!1 &1053788157
 GameObject:
   m_ObjectHideFlags: 0
@@ -4114,7 +4173,8 @@ GameObject:
   - component: {fileID: 1053788159}
   - component: {fileID: 1053788158}
   - component: {fileID: 1053788161}
-  - component: {fileID: 1053788160}
+  - component: {fileID: 1053788162}
+  - component: {fileID: 1053788163}
   m_Layer: 0
   m_Name: DamageBoost
   m_TagString: Untagged
@@ -4189,24 +4249,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1053788160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1053788157}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8e57b3c52bc4944b863216b82d80c64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 1988368456}
-  gameController: {fileID: 171734873}
-  baseDamageBoost: 0
-  cost: 400
-  currentLevel: 0
-  maxLevel: 3
 --- !u!61 &1053788161
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4252,6 +4294,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.9673553, y: 5.814817}
   m_EdgeRadius: 0
+--- !u!114 &1053788162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1053788157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+--- !u!114 &1053788163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1053788157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e13729efa33145468e81c38e29925f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1988368456}
+  uiController: {fileID: 171734873}
+  basePlayerStat: 0
+  cost: 500
+  currentLevel: 0
+  maxLevel: 3
 --- !u!1 &1067878656
 GameObject:
   m_ObjectHideFlags: 0
@@ -5462,9 +5535,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1032545145}
-        m_TargetAssemblyTypeName: ExtraResistance, Assembly-CSharp
-        m_MethodName: DecreasePlayerResistance
+      - m_Target: {fileID: 1032545148}
+        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
+        m_MethodName: DecreasePlayerStats
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5670,9 +5743,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1754376991}
-        m_TargetAssemblyTypeName: SpeedBoost, Assembly-CSharp
-        m_MethodName: DecreasePlayerMovementSpeed
+      - m_Target: {fileID: 1754376994}
+        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
+        m_MethodName: DecreasePlayerStats
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6254,6 +6327,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1564539408}
   - component: {fileID: 1564539411}
+  - component: {fileID: 1564539412}
   - component: {fileID: 1564539410}
   m_Layer: 0
   m_Name: Rifle
@@ -6355,6 +6429,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.7934322, y: 6.0222106}
   m_EdgeRadius: 0
+--- !u!114 &1564539412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564539406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &1594199199
 GameObject:
   m_ObjectHideFlags: 0
@@ -6449,6 +6536,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1628724716}
   - component: {fileID: 1628724719}
+  - component: {fileID: 1628724720}
   - component: {fileID: 1628724718}
   m_Layer: 0
   m_Name: ElderGun
@@ -6550,6 +6638,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.984903, y: 8.009585}
   m_EdgeRadius: 0
+--- !u!114 &1628724720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628724714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &1748980567
 GameObject:
   m_ObjectHideFlags: 0
@@ -6726,7 +6827,8 @@ GameObject:
   - component: {fileID: 1754376990}
   - component: {fileID: 1754376989}
   - component: {fileID: 1754376992}
-  - component: {fileID: 1754376991}
+  - component: {fileID: 1754376993}
+  - component: {fileID: 1754376994}
   m_Layer: 0
   m_Name: SpeedBoost
   m_TagString: Untagged
@@ -6801,24 +6903,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1754376991
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1754376988}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87eea573ec45a044385bbe1905bf8f7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 1988368456}
-  gameController: {fileID: 171734873}
-  baseMovementSpeed: 0
-  cost: 0
-  currentLevel: 0
-  maxLevel: 3
 --- !u!61 &1754376992
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6864,6 +6948,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.265108, y: 5.5170603}
   m_EdgeRadius: 0
+--- !u!114 &1754376993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1754376988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+--- !u!114 &1754376994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1754376988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e13729efa33145468e81c38e29925f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1988368456}
+  uiController: {fileID: 171734873}
+  basePlayerStat: 0
+  cost: 500
+  currentLevel: 0
+  maxLevel: 3
 --- !u!1 &1781141508
 GameObject:
   m_ObjectHideFlags: 0
@@ -7914,7 +8029,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponInHand: {fileID: 0}
-  gameController: {fileID: 171734873}
+  uiController: {fileID: 171734873}
   currentHealth: 20
   maxHealth: 20
   movementSpeed: 7
@@ -8336,9 +8451,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 552497546}
-        m_TargetAssemblyTypeName: ExtraHealth, Assembly-CSharp
-        m_MethodName: DecreasePlayerMaxHealth
+      - m_Target: {fileID: 552497549}
+        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
+        m_MethodName: DecreasePlayerStats
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8469,9 +8584,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1053788160}
-        m_TargetAssemblyTypeName: DamageBoost, Assembly-CSharp
-        m_MethodName: DecreasePlayerDamageBoost
+      - m_Target: {fileID: 1053788163}
+        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
+        m_MethodName: DecreasePlayerStats
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8736,9 +8851,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1053788160}
-        m_TargetAssemblyTypeName: DamageBoost, Assembly-CSharp
-        m_MethodName: IncreasePlayerDamageBoost
+      - m_Target: {fileID: 1053788163}
+        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
+        m_MethodName: IncreasePlayerStats
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
