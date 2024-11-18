@@ -13,6 +13,12 @@ public class RangedWeapon : MonoBehaviour
     public Transform gunStand;
     public GameObject bulletPrefab;
 
+    public AudioSource audioSource;
+
+    public AudioClip fireSoundEffect;
+
+    public AudioClip reloadSoundEffect;
+
     public int cost;
 
     public int magazineSize;
@@ -132,6 +138,8 @@ public class RangedWeapon : MonoBehaviour
 
     void Shoot()
     {
+        audioSource.PlayOneShot(fireSoundEffect);
+
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
 
         Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();

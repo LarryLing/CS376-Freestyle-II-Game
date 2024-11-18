@@ -161,9 +161,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dcd246b1c150474190390d350db8ff2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeapon: {fileID: 0}
+  audioSource: {fileID: 0}
   currentHealth: 0
   maxHealth: 5
   movementSpeed: 8
-  resistance: 0
-  attackSpeed: 0
-  coinValue: 7
+  resistanceLevel: 0

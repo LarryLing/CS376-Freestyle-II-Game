@@ -9,6 +9,12 @@ public class Upgrade : MonoBehaviour
 
     public UIController uiController;
 
+    public AudioSource audioSource;
+
+    public AudioClip upgradeSoundEffect;
+
+    public AudioClip downgradeSoundEffect;
+
     public float basePlayerStat;
 
     public int cost;
@@ -66,6 +72,8 @@ public class Upgrade : MonoBehaviour
         }
         else
         {
+            audioSource.PlayOneShot(upgradeSoundEffect);
+
             player.SpendCoins(cost);
 
             currentLevel += 1;
@@ -103,6 +111,8 @@ public class Upgrade : MonoBehaviour
         }
         else
         {
+            audioSource.PlayOneShot(downgradeSoundEffect);
+
             currentLevel -= 1;
 
             if (name == "SpeedBoost")

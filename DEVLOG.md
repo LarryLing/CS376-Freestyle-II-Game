@@ -113,4 +113,6 @@ downgrade (which will only give them an `Upgrade Point` in return).
 
 - Upon opening of the UI, other game objects will no longer respond to clicks and user movement input will not be read. Once the user closes the UI, game object and movement input will return to normal function.
 
-- Implemented sound effects for shooting, bullets hitting zombies, upgrading stats, and downgrading stats.
+- Implemented sound effects for shooting, bullets hitting zombies, reloading, upgrading stats, and downgrading stats.
+
+- Melee weapons will no longer be implemented in the game.

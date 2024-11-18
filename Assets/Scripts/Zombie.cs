@@ -40,7 +40,7 @@ public class Zombie : MonoBehaviour
 
     }
 
-    void TakeDamage(float baseDamage)
+    public void TakeDamage(float baseDamage)
     {
         currentHealth -= (1 - (resistanceLevel * 0.2f)) * baseDamage;
 
