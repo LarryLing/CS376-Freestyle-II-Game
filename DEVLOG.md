@@ -1,6 +1,6 @@
 # Devlog
 
-## 11/15/2024 - Game Structure Planning
+### 11/15/2024 - Game Structure Planning
 - `IMovingEntity`
     - Attributes:
         - `Weapon currentWeapon`
@@ -76,7 +76,7 @@
 - `Mace` extends `IMeleeWeapon`
 - `Elder Gun` extends `IRangedWeapon`
 
-## 11/16/2024 - Game Setup
+### 11/16/2024 - Game Setup
 - Created Game Sprites
     - Player Sprite
     - 3 Zombie Sprites
@@ -102,7 +102,7 @@ Each ranged and melee weapon will use their respective classes to initialize the
 
 - Implemented `Speed Boost`, `Extra Resistance`, `Extra Health`, and `Damage Boost` upgrades to change `Player` traits.
 
-## 11/17/2024 - UI and Gunplay
+### 11/17/2024 - UI and Gunplay
 - When the player wants to purchase an upgrade, they can click on the sprite and a popup will appear.
 On the popup, they can choose to either purchase an upgrade (which will expend an `Upgrade Point` and `Coins`) or
 downgrade (which will only give them an `Upgrade Point` in return).
@@ -117,12 +117,11 @@ downgrade (which will only give them an `Upgrade Point` in return).
 
 - Melee weapons will no longer be implemented in the game. Instead, there will be more variations of guns such as burst weapons and shotguns, each with their own firing sounds.
 
-## 11/18/2024 - Enemy AI, Map Creation, and Zombie Waves
+### 11/18/2024 - Enemy AI, Map Creation, and Zombie Waves
 - The map will consist of a large rectangular boundary so that stray bullets will always be destroyed upon a collision. Throughout the map, there will be 6 different zombie
 spawner points. The upgrades will also be spread out throughout the map. Crates of different sizes will also be placed throughout the map to serve as places for the player to take cover.
 
-- The game will consist of 5 waves. The first wave will only consist of normal zombies. As the waves progress, the probability of speed and tank zombies will increase and the total number of zombies that will spawned in the wave
-will increase. The percentages below will list out the probability of spawning each type of zombie during each wave (Normal/Speed/Tank).
+- The game will consist of 5 waves. The first wave will only consist of normal zombies. As the waves progress, the probability of speed and tank zombies will increase and the total number of zombies that will spawned in the wave will increase. The percentages below will list out the probability of spawning each type of zombie during each wave (Normal/Speed/Tank).
     - Wave 1: 100%/0%/0%
     - Wave 2: 80%/10%/10%
     - Wave 3: 60%/20%/20%
@@ -153,4 +152,19 @@ too quickly.
 
 - Instead of dedicated spawn points throughout the map for zombies, they will now spawn randomly throughout the map.
 
-- Added win screen and warning text if playing tries to buy weapon without having enough money.
+- Added win screen and warning text if player tries to buy weapon without having enough money.
+
+## Postmortem
+- The original goal of the game was to make a top-down shooter game like that of Call of Duty Zombies. The player would've been able to find guns and upgrades around the map as well as a mystery box that grants them a special weapon.
+
+- By the end of the assignment, mystery box idea had to be scrapped and the dedicated zombie spawning areas that Call of Duty uses had to replaced with random location spawning. The complexity of the maps had to also be reduced by replacing inner walls with large and small crates scattered throughout the map.
+
+- After changing the goals of the project, I believe I managed to sucessfully accomplish all of them. The core game loop was successfully implemented, and I like to think that I added my own twist to the zombies game mode. Hopefully, in the future, I'll come back to this project and elaborate on these ideas even further.
+
+- Something that went right for this project was an implementation of the zombie waves system. Prior to starting this project, I had a couple ideas, but wasn't totally sure about how Call of Duty implemented this in their zombies game mode. Luckily, I was able to successfully add a waves system with the addition of a grace period most on my first attempt. Minus a few logical mistakes.
+
+- I originally wanted to utilize an interface for the player and zombies and another interface for the upgrades. However, the implementation of the player and zombies were much more different thatn I thought, and so the idea of using an interface had to be scrapped since it would result in too much extra code. For the upgrades, it was the exact opposite. Their functionality, apart from the different player stats that they change, were too similiar to see a benefit from using an interface.
+
+- Something that I wish I knew before starting the project was the use of `Unity Events`. They allow for different Game Objects to subscribe to and perform actions in response to the occurence of a pre-defined event. This prevents the probability of having "spaghetti code" by having `GameObjects` that store components of `GameObjects`.
+
+- At the end of the project, I learned various important processes for implementing a 2D shooter such as aiming, firing, and movement. For firing, in particular, I figured out how implement different types of shooting such as automatic, semi-automatic, burst, and shotguns.

@@ -24,6 +24,11 @@ public class Bullet : MonoBehaviour
             go.GetComponent<Zombie>().TakeDamage(bulletDamage);
         }
 
+        if (go.GetComponent<Bullet>() != null)
+        {
+            return;
+        }
+
         Destroy(gameObject);
     }
 }

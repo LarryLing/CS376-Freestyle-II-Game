@@ -24,11 +24,11 @@ public class GameController : MonoBehaviour
 
     public int wave = 1;
 
-    private int zombiesSpawnedDuringWave = 0;
+    public int zombiesSpawnedDuringWave = 0;
 
-    private int zombiesRemaining;
-    
-    private int maxZombiesPerWave = 10;
+    public int zombiesRemaining;
+
+    public int maxZombiesPerWave = 10;
 
     public float normalZombieProbability = 1f;
 
@@ -42,7 +42,7 @@ public class GameController : MonoBehaviour
 
     private float timeSinceLastSpawn;
 
-    private float timeBetweenSpawns = 5f;
+    private float timeBetweenSpawns = 6f;
 
     private float spawnRadius = 5f;
 
@@ -123,6 +123,8 @@ public class GameController : MonoBehaviour
 
         wave += 1;
 
+        timeBetweenSpawns -= 1f;
+
         maxZombiesPerWave = 10 * wave;
 
         zombiesRemaining = maxZombiesPerWave;
@@ -137,7 +139,7 @@ public class GameController : MonoBehaviour
         int zombieType = DetermineZombieType();
         Vector2 spawnLocation = DetermineSpawnLocation();
 
-        if (zombieType == 0)
+        if (zombieType == 0 || zombieType == -1)
         {
             Instantiate(normalZombiePrefab, spawnLocation, Quaternion.identity);
         }

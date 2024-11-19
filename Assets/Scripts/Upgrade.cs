@@ -17,7 +17,7 @@ public class Upgrade : MonoBehaviour
 
     public float basePlayerStat;
 
-    private float interactRadius = 6f;
+    private float interactRadius = 12f;
 
     public int cost;
 

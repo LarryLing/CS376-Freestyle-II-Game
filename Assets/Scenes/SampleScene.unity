@@ -869,18 +869,18 @@ MonoBehaviour:
   firePoint: {fileID: 1831562690}
   gunHandle: {fileID: 49894363}
   playerWeaponHand: {fileID: 121861920}
-  gunStand: {fileID: 0}
   bulletPrefab: {fileID: 4595701915715228121, guid: bae28f1530b07a345938c71ce55e01c8, type: 3}
   audioSource: {fileID: 606005674}
   fireSoundEffect: {fileID: 8300000, guid: 684f1c24bc1543f46addbd7597e4af0b, type: 3}
   reloadSoundEffect: {fileID: 8300000, guid: cc3b641262d0fee4684590b7b9c85acd, type: 3}
+  uiController: {fileID: 171734873}
   cost: 0
   magazineSize: 12
   bulletsLeft: 12
   bulletForce: 20
   delayBetweenShots: 0.8
   lastFireTime: 0
-  reloadDuration: 2
+  reloadDuration: 1.5
   lastReloadTime: 0
   damagePerBullet: 4
   burstDelay: 0
@@ -2485,18 +2485,18 @@ MonoBehaviour:
   firePoint: {fileID: 991926981}
   gunHandle: {fileID: 462865075}
   playerWeaponHand: {fileID: 121861920}
-  gunStand: {fileID: 0}
   bulletPrefab: {fileID: 4595701915715228121, guid: bae28f1530b07a345938c71ce55e01c8, type: 3}
   audioSource: {fileID: 606005674}
   fireSoundEffect: {fileID: 8300000, guid: 684f1c24bc1543f46addbd7597e4af0b, type: 3}
   reloadSoundEffect: {fileID: 8300000, guid: cc3b641262d0fee4684590b7b9c85acd, type: 3}
-  cost: 450
+  uiController: {fileID: 171734873}
+  cost: 550
   magazineSize: 36
   bulletsLeft: 36
   bulletForce: 35
   delayBetweenShots: 0.9
   lastFireTime: 0
-  reloadDuration: 3
+  reloadDuration: 2.5
   lastReloadTime: 0
   damagePerBullet: 2.5
   burstDelay: 0.1
@@ -3820,6 +3820,9 @@ MonoBehaviour:
         m_CallState: 2
   zombiesKilled: 0
   wave: 1
+  zombiesSpawnedDuringWave: 0
+  zombiesRemaining: 0
+  maxZombiesPerWave: 10
   normalZombieProbability: 1
   speedZombieProbability: 0
   tankZombieProbability: 0
@@ -9536,18 +9539,18 @@ MonoBehaviour:
   firePoint: {fileID: 2053515899}
   gunHandle: {fileID: 1564539408}
   playerWeaponHand: {fileID: 121861920}
-  gunStand: {fileID: 0}
   bulletPrefab: {fileID: 4595701915715228121, guid: bae28f1530b07a345938c71ce55e01c8, type: 3}
   audioSource: {fileID: 606005674}
   fireSoundEffect: {fileID: 8300000, guid: 684f1c24bc1543f46addbd7597e4af0b, type: 3}
   reloadSoundEffect: {fileID: 8300000, guid: cc3b641262d0fee4684590b7b9c85acd, type: 3}
-  cost: 400
+  uiController: {fileID: 171734873}
+  cost: 500
   magazineSize: 30
   bulletsLeft: 30
   bulletForce: 35
   delayBetweenShots: 0.6
   lastFireTime: 0
-  reloadDuration: 3
+  reloadDuration: 2
   lastReloadTime: 0
   damagePerBullet: 5
   burstDelay: 0
@@ -9582,7 +9585,7 @@ Transform:
   m_GameObject: {fileID: 1576644305}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.06, y: 3.56, z: 0}
+  m_LocalPosition: {x: -0.06, y: 3.74, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9916,20 +9919,20 @@ MonoBehaviour:
   firePoint: {fileID: 1558365800}
   gunHandle: {fileID: 1628724716}
   playerWeaponHand: {fileID: 121861920}
-  gunStand: {fileID: 0}
   bulletPrefab: {fileID: 4595701915715228121, guid: bae28f1530b07a345938c71ce55e01c8, type: 3}
   audioSource: {fileID: 606005674}
   fireSoundEffect: {fileID: 8300000, guid: 9f128a5c907961d4484d213f5d5c47a1, type: 3}
   reloadSoundEffect: {fileID: 8300000, guid: cc3b641262d0fee4684590b7b9c85acd, type: 3}
-  cost: 700
-  magazineSize: 5
-  bulletsLeft: 5
+  uiController: {fileID: 171734873}
+  cost: 800
+  magazineSize: 4
+  bulletsLeft: 4
   bulletForce: 50
   delayBetweenShots: 2.5
   lastFireTime: 0
   reloadDuration: 4
   lastReloadTime: 0
-  damagePerBullet: 15
+  damagePerBullet: 12
   burstDelay: 0
   isEquippedByPlayer: 0
   isReloading: 0
@@ -11382,20 +11385,20 @@ MonoBehaviour:
   firePoint: {fileID: 1576644306}
   gunHandle: {fileID: 1979366015}
   playerWeaponHand: {fileID: 121861920}
-  gunStand: {fileID: 0}
   bulletPrefab: {fileID: 4595701915715228121, guid: bae28f1530b07a345938c71ce55e01c8, type: 3}
   audioSource: {fileID: 606005674}
   fireSoundEffect: {fileID: 8300000, guid: dfc3d8c1bda671a4697aa6487d367dba, type: 3}
   reloadSoundEffect: {fileID: 8300000, guid: cc3b641262d0fee4684590b7b9c85acd, type: 3}
-  cost: 500
-  magazineSize: 21
-  bulletsLeft: 21
+  uiController: {fileID: 171734873}
+  cost: 700
+  magazineSize: 15
+  bulletsLeft: 15
   bulletForce: 35
   delayBetweenShots: 1.5
   lastFireTime: 0
-  reloadDuration: 3
+  reloadDuration: 3.5
   lastReloadTime: 0
-  damagePerBullet: 7
+  damagePerBullet: 5
   burstDelay: 0
   isEquippedByPlayer: 0
   isReloading: 0
@@ -11588,7 +11591,7 @@ MonoBehaviour:
   movementSpeed: 9.5
   resistance: 0
   damageBoost: 0
-  coins: 0
+  coins: 1000
   upgradePoints: 6
   isInvincible: 0
 --- !u!212 &1988368457

@@ -30,7 +30,7 @@ public class Weapon : MonoBehaviour
 
     public int bulletsLeft;
 
-    private float equipRadius = 6f;
+    private float equipRadius = 10f;
 
     public float bulletForce;
 
@@ -69,6 +69,11 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
+        if (isEquippedByPlayer && Input.GetKeyDown(KeyCode.R))
+        {
+            Reload();
+        }
+
         if (isReloading)
         {
             float timeSinceLastReload = Time.time - lastReloadTime;
@@ -173,13 +178,7 @@ public class Weapon : MonoBehaviour
 
         if (bulletsLeft == 0)
         {
-            magazineText.text = "Reloading...";
-
-            isReloading = true;
-
-            lastReloadTime = Time.time;
-
-            audioSource.PlayOneShot(reloadSoundEffect);
+            Reload();
         }
     }
 
@@ -209,21 +208,26 @@ public class Weapon : MonoBehaviour
 
             if (bulletsLeft == 0)
             {
-                magazineText.text = "Reloading...";
-
-                isReloading = true;
-
-                lastReloadTime = Time.time;
-
-                audioSource.PlayOneShot(reloadSoundEffect);
+                Reload();
             }
         }
     }
     void FireShell()
     {
         FireSingle(firePoint.rotation);
-        FireSingle(firePoint.rotation * Quaternion.AngleAxis(10f, firePoint.forward));
-        FireSingle(firePoint.rotation * Quaternion.AngleAxis(-10f, firePoint.forward));
+        FireSingle(firePoint.rotation * Quaternion.AngleAxis(15f, firePoint.forward));
+        FireSingle(firePoint.rotation * Quaternion.AngleAxis(-15f, firePoint.forward));
+    }
+
+    void Reload()
+    {
+        magazineText.text = "Reloading...";
+
+        isReloading = true;
+
+        lastReloadTime = Time.time;
+
+        audioSource.PlayOneShot(reloadSoundEffect);
     }
 
     private bool PlayerCanPickUpWeapon()

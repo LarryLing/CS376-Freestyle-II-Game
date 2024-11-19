@@ -35,6 +35,8 @@ public class Zombie : MonoBehaviour
 
     private bool chasingPlayer;
 
+    public bool isDead;
+
     public Vector2 directionToPlayer;
 
     public Vector2 targetDirection;
@@ -48,6 +50,8 @@ public class Zombie : MonoBehaviour
         awarenessRadius = 60f;
 
         rotationSpeed = 400f;
+
+        isDead = false;
     }
 
     void Start()
@@ -135,7 +139,12 @@ public class Zombie : MonoBehaviour
 
             Destroy(this.gameObject, 0.5f);
 
-            gameController.IncrementZombiesKilled();
+            if (!isDead)
+            {
+                gameController.IncrementZombiesKilled();
+
+                isDead = true;
+            }
         }
     }
 }
