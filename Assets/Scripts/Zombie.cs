@@ -45,7 +45,7 @@ public class Zombie : MonoBehaviour
 
         gameController = FindObjectOfType<GameController>().GetComponent<GameController>();
 
-        awarenessRadius = 30f;
+        awarenessRadius = 60f;
 
         rotationSpeed = 400f;
     }
@@ -135,7 +135,7 @@ public class Zombie : MonoBehaviour
 
             Destroy(this.gameObject, 0.5f);
 
-            gameController.zombiesKilled += 1;
+            gameController.IncrementZombiesKilled();
         }
     }
 }

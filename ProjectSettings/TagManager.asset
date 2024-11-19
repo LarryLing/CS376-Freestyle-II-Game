@@ -44,11 +44,11 @@ TagManager:
   - name: Envrironment
     uniqueID: 3414180795
     locked: 0
-  - name: Bullets
-    uniqueID: 3869031197
-    locked: 0
   - name: Collectibles
     uniqueID: 3723652307
+    locked: 0
+  - name: Bullets
+    uniqueID: 3869031197
     locked: 0
   - name: MovingEntities
     uniqueID: 3208691893

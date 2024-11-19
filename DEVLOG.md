@@ -144,3 +144,13 @@ too quickly.
 - Implemented a game over screen that will display the number of zombies killed, the number of waves survived, and the an option to try again.
 
 - Fixed a bug where the health bar was not scaling correctly when the player upgraded/downgraded their max health.
+
+- Created map consisting of crates and scattered collectibles around the map.
+
+- Tweaked player, collectibles, and zombie stats for balancing.
+
+- Fixed a bug where diagonal player movement causes player to move faster. To compensate, the player's speed will be faster than that of a normal zombie.
+
+- Instead of dedicated spawn points throughout the map for zombies, they will now spawn randomly throughout the map.
+
+- Added win screen and warning text if playing tries to buy weapon without having enough money.

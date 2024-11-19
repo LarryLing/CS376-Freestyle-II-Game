@@ -58,6 +58,8 @@ public class Player : MonoBehaviour
         movementVector.x = Input.GetAxisRaw("Horizontal");
         movementVector.y = Input.GetAxisRaw("Vertical");
 
+        movementVector = movementVector.normalized;
+
         mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
     }
 
@@ -136,6 +138,13 @@ public class Player : MonoBehaviour
         {
             OnDamaged.Invoke();
         }
+    }
+
+    public void Heal()
+    {
+        currentHealth = maxHealth;
+
+        UpdateHealthBar();
     }
 
     public void UpdateHealthBar()

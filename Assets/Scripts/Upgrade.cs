@@ -17,6 +17,8 @@ public class Upgrade : MonoBehaviour
 
     public float basePlayerStat;
 
+    private float interactRadius = 6f;
+
     public int cost;
 
     public int currentLevel = 0;
@@ -50,7 +52,7 @@ public class Upgrade : MonoBehaviour
 
     public void OnPointerUpDelegate(PointerEventData data)
     {
-        if (data.button == PointerEventData.InputButton.Left)
+        if (data.button == PointerEventData.InputButton.Left && PlayerCanInteract())
         {
             uiController.OpenPrompt(this.gameObject.name, cost, currentLevel);
         }
@@ -88,7 +90,11 @@ public class Upgrade : MonoBehaviour
             }
             else if (name == "ExtraHealth")
             {
+                float playerHealthRatio = player.currentHealth / player.maxHealth;
+
                 player.maxHealth = basePlayerStat * (1.0f + (0.2f * currentLevel));
+
+                player.currentHealth = player.maxHealth * playerHealthRatio;
 
                 player.UpdateHealthBar();
             }
@@ -97,7 +103,7 @@ public class Upgrade : MonoBehaviour
                 player.damageBoost = 0.2f * currentLevel;
             }
 
-            cost += 150;
+            cost += 175;
 
             player.DecrementUpgradesAvailable();
 
@@ -141,11 +147,16 @@ public class Upgrade : MonoBehaviour
                 player.damageBoost = 0.2f * currentLevel;
             }
 
-            cost -= 150;
+            cost -= 175;
 
             player.IncrementUpgradesAvailable();
 
             uiController.UpdateText(this.gameObject.name, cost, currentLevel);
         }
+    }
+
+    private bool PlayerCanInteract()
+    {
+        return interactRadius >= Vector2.Distance(transform.position, player.transform.position);
     }
 }

@@ -266,7 +266,7 @@ MonoBehaviour:
   circleCollider: {fileID: 2007949937744260160}
   currentHealth: 24
   maxHealth: 24
-  movementSpeed: 4
+  movementSpeed: 7
   attackDamage: 7.5
   resistanceLevel: 2
   directionToPlayer: {x: 0, y: 0}

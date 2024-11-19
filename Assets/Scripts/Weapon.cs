@@ -7,10 +7,13 @@ using UnityEngine.EventSystems;
 public class Weapon : MonoBehaviour
 {
     public Player player;
+
     public Transform firePoint;
+
     public Transform gunHandle;
+
     public Transform playerWeaponHand;
-    public Transform gunStand;
+
     public GameObject bulletPrefab;
 
     public AudioSource audioSource;
@@ -18,6 +21,8 @@ public class Weapon : MonoBehaviour
     public AudioClip fireSoundEffect;
 
     public AudioClip reloadSoundEffect;
+
+    public UIController uiController;
 
     public int cost;
 
@@ -103,6 +108,13 @@ public class Weapon : MonoBehaviour
 
     public void Equip()
     {
+        if (player.coins < cost)
+        {
+            uiController.DisplayWarningText("You need " + (cost - player.coins) + " more coins!");
+
+            return;
+        }
+
         if (purchasedByPlayer || player.coins >= cost)
         {
             if (player.weaponInHand == null)

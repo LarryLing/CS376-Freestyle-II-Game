@@ -13,7 +13,7 @@ public class GameOverScreen : MonoBehaviour
     public void ShowGameOverScreen()
     {
         ZombiesKilledText.text = "Zombies Killed: " + gameController.zombiesKilled;
-        WavesSurvivedText.text = "Waves Survived: " + gameController.wavesSurvived;
+        WavesSurvivedText.text = "Waves Survived: " + (gameController.wave - 1);
 
         gameObject.SetActive(true);
     }
